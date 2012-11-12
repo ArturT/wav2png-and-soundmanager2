@@ -3,10 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <title>Player</title>
-    <script src="/soundmanager2-jsmin.js"></script>
+    <!-- Page player core CSS -->
+    <link rel="stylesheet" type="text/css" href="page-player.css" />
+    <!-- soundManager.useFlashBlock: related CSS -->
+    <link rel="stylesheet" type="text/css" href="flashblock.css" />
+    <script src="soundmanager2-jsmin.js"></script>
+    <script type="text/javascript">
+      // custom page player configuration
+      var PP_CONFIG = {
+        autoStart: false,      // begin playing first sound when page loads
+        playNext: true,        // stop after one sound, or play through list until end
+        useThrottling: false,  // try to rate-limit potentially-expensive calls (eg. dragging position around)</span>
+        usePeakData: true,     // [Flash 9 only] whether or not to show peak data (left/right channel values) - nor noticable on CPU
+        useWaveformData: false,// [Flash 9 only] show raw waveform data - WARNING: LIKELY VERY CPU-HEAVY
+        useEQData: false,      // [Flash 9 only] show EQ (frequency spectrum) data
+        useFavIcon: false     // try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?) - may be too heavy on CPU
+      }
+    </script>
+    <!-- Page player main script -->
+    <script src="page-player.js"></script>
     <script>
       soundManager.setup({
-        url: 'swf/',
+        url: '/swf/',
         flashVersion: 8, // optional: shiny features (default = 8)
         useFlashBlock: false, // optionally, enable when you're ready to dive in
         /**
@@ -15,16 +33,16 @@
         */
         onready: function() {
           // Ready to use; soundManager.createSound() etc. can now be called.
-          soundManager.createSound({
-            id: 'mySound',
-            url: '/tmp.wav',
-            autoLoad: true,
-            autoPlay: false,
-            onload: function() {
-              alert('The sound '+this.id+' loaded!');
-            },
-            volume: 50
-          });
+          //soundManager.createSound({
+          //  id: 'mySound',
+          //  url: '/tmp.wav',
+          //  autoLoad: true,
+          //  autoPlay: false,
+          //  onload: function() {
+          //    alert('The sound '+this.id+' loaded!');
+          //  },
+          //  volume: 50
+          //});
 
           soundManager.ontimeout(function() {
             // SM2 could not start. Flash blocked, missing or security error? Complain, etc.?
@@ -36,5 +54,13 @@
   </head>
   <body>
     <div id="mySound"></div>
+
+    <div id="sm2-container">
+      <!-- SM2 flash goes here -->
+    </div>
+
+    <ul class="playlist">
+      <li><a href="/tmp.wav">Song Title</a></li>
+    </ul>
   </body>
 </html>
