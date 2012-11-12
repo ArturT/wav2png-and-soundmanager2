@@ -8,6 +8,10 @@
     <!-- soundManager.useFlashBlock: related CSS -->
     <link rel="stylesheet" type="text/css" href="flashblock.css" />
     <script src="soundmanager2-jsmin.js"></script>
+    <!-- Page player main script -->
+    <script src="page-player.js"></script>
+    <!-- optional: Metadata UI prototype (not needed unless you want the bottom-most demo bits) -->
+    <script src="optional-page-player-metadata.js"></script>
     <script type="text/javascript">
       // custom page player configuration
       var PP_CONFIG = {
@@ -19,37 +23,43 @@
         useEQData: false,      // [Flash 9 only] show EQ (frequency spectrum) data
         useFavIcon: false     // try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?) - may be too heavy on CPU
       }
-    </script>
-    <!-- Page player main script -->
-    <script src="page-player.js"></script>
-    <script>
+      // demo only, but you can use these settings too..
       soundManager.setup({
-        url: '/swf/',
-        flashVersion: 8, // optional: shiny features (default = 8)
-        useFlashBlock: false, // optionally, enable when you're ready to dive in
-        /**
-        * read up on HTML5 audio support, if you're feeling adventurous.
-        * iPad/iPhone and devices without flash installed will always attempt to use it.
-        */
-        onready: function() {
-          // Ready to use; soundManager.createSound() etc. can now be called.
-          //soundManager.createSound({
-          //  id: 'mySound',
-          //  url: '/tmp.wav',
-          //  autoLoad: true,
-          //  autoPlay: false,
-          //  onload: function() {
-          //    alert('The sound '+this.id+' loaded!');
-          //  },
-          //  volume: 50
-          //});
-
-          soundManager.ontimeout(function() {
-            // SM2 could not start. Flash blocked, missing or security error? Complain, etc.?
-            alert('SM2 could not start');
-          });
-        }
+        flashVersion: 9,
+        preferFlash: true, // for visualization effects
+        useHighPerformance: true, // keep flash on screen, boost performance
+        wmode: 'transparent', // transparent SWF, if possible
+        url: '/swf/'
       });
+    </script>
+    <script>
+      //soundManager.setup({
+      //  url: '/swf/',
+      //  flashVersion: 9, // optional: shiny features (default = 8)
+      //  useFlashBlock: false, // optionally, enable when you're ready to dive in
+      //  /**
+      //  * read up on HTML5 audio support, if you're feeling adventurous.
+      //  * iPad/iPhone and devices without flash installed will always attempt to use it.
+      //  */
+      //  onready: function() {
+      //     Ready to use; soundManager.createSound() etc. can now be called.
+      //    soundManager.createSound({
+      //      id: 'mySound',
+      //      url: '/tmp.wav',
+      //      autoLoad: true,
+      //      autoPlay: false,
+      //      onload: function() {
+      //        alert('The sound '+this.id+' loaded!');
+      //      },
+      //      volume: 50
+      //    });
+
+      //    soundManager.ontimeout(function() {
+      //      // SM2 could not start. Flash blocked, missing or security error? Complain, etc.?
+      //      alert('SM2 could not start');
+      //    });
+      //  }
+      //});
     </script>
   </head>
   <body>
