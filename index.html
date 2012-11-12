@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Player</title>
+    <script src="/soundmanager2-jsmin.js"></script>
+    <script>
+      soundManager.setup({
+        url: 'swf/',
+        flashVersion: 8, // optional: shiny features (default = 8)
+        useFlashBlock: false, // optionally, enable when you're ready to dive in
+        /**
+        * read up on HTML5 audio support, if you're feeling adventurous.
+        * iPad/iPhone and devices without flash installed will always attempt to use it.
+        */
+        onready: function() {
+          // Ready to use; soundManager.createSound() etc. can now be called.
+          soundManager.createSound({
+            id: 'mySound',
+            url: '/tmp.wav',
+            autoLoad: true,
+            autoPlay: false,
+            onload: function() {
+              alert('The sound '+this.id+' loaded!');
+            },
+            volume: 50
+          });
+
+          soundManager.ontimeout(function() {
+            // SM2 could not start. Flash blocked, missing or security error? Complain, etc.?
+            alert('SM2 could not start');
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="mySound"></div>
+  </body>
+</html>
