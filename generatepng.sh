@@ -1,7 +1,9 @@
 #!/bin/bash
-# $1 song.format
+# $1 is song.format
 
-params="--foreground-color=ffb400aa --background-color=2e4562ff"
+width="900"
+height="140"
+params="--foreground-color=ffb400aa --background-color=2e4562ff --width=$width --height=$height"
 
 if [[ "$1" == *.wav* ]]
 then
